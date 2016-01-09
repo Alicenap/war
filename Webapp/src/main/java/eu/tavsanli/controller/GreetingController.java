@@ -3,6 +3,7 @@ package eu.tavsanli.controller;
 
 import eu.tavsanli.ejb.GreetingBean;
 import eu.tavsanli.localejbapi.UnitConverter;
+import eu.tavsanli.remoteejpapi.WeatherStation;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +20,9 @@ public class GreetingController extends HttpServlet {
     @EJB
     private GreetingBean greetingBean;
 
+    @EJB(name = "WeatherStation")
+    WeatherStation weatherStation;
+
     @EJB
     UnitConverter unitConverter;
 
@@ -26,7 +30,8 @@ public class GreetingController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final String greeting = greetingBean.getGreeting();
         request.setAttribute("greeting", greeting);
-        final Double temperatureInCelsius = unitConverter.fahrenheitToCelsius(95.0);
+        final Double temperatureInFahrenheit = weatherStation.getTemperature();
+        final Double temperatureInCelsius = unitConverter.fahrenheitToCelsius(temperatureInFahrenheit);
         request.setAttribute("temperatureInCelsius", temperatureInCelsius);
         final RequestDispatcher view = request.getRequestDispatcher("index.jsp");
         view.forward(request, response);

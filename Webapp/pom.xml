@@ -30,6 +30,11 @@
       <artifactId>LocalEjbImpl</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>eu.tavsanli.remoteejpapi</groupId>
+      <artifactId>RemoteEjbApi</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>Webapp</finalName>
